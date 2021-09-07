@@ -29,21 +29,28 @@ class Post
 
     public static function all()
     {
-        $files = File::files(resource_path("posts"));
-        $posts = [];
-
-        return collect($files)->map(function ($file) {
-            return YamlFrontMatter::parseFile($file);
-        })->map(function ($document) {
-            return new Post(
-                $document->title,
-                $document->excerpt,
-                $document->date,
-                $document->body(),
-                $document->slug,
-            );
+        // php artisan tinker
+        // cache('posts.all');
+        // cache()->forget('posts.all');
+        // cache()->get('posts.all');
+        // cache()->put('foo', 'bar');
+        // cache(['foo' => 'bar']);
+        // cache(['foo' => 'bar'], now()->addSeconds(3));
+        return cache()->rememberForever('posts.all', function () {
+            return collect(File::files(resource_path("posts")))->map(function ($file) {
+                return YamlFrontMatter::parseFile($file);
+            })->map(function ($document) {
+                return new Post(
+                    $document->title,
+                    $document->excerpt,
+                    $document->date,
+                    $document->body(),
+                    $document->slug,
+                );
+            })->sortByDesc('date');
         });
 
+        // $files = File::files(resource_path("posts"));
         // return array_map(function ($file) {
         //     $document = YamlFrontMatter::parseFile($file);
         //     return new Post(
@@ -55,6 +62,8 @@ class Post
         //     );
         // }, $files);
 
+        // $files = File::files(resource_path("posts"));
+        // $posts = [];
         // foreach ($files as $file) {
         //     $document = YamlFrontMatter::parseFile($file);
         //     $posts[] = new Post(
@@ -74,7 +83,6 @@ class Post
         //     // abort(404);
         //     throw new ModelNotFoundException();
         // }
-
         // return cache()->remember("posts.{$slug}", now()->addMinutes(20), function () use ($path) {
         //     return file_get_contents($path);
         // });
