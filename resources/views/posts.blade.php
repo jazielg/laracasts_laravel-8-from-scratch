@@ -1,9 +1,10 @@
-<!doctype html>
+@extends('layout')
 
-<title>My Bolg</title>
-<link rel="stylesheet" href="/app.css">
+@section('banner')
+    <h1>My Blog</h1>
+@endsection
 
-<body>
+@section('content')
     @foreach ($posts as $post)
         {{-- @dd($loop) --}}
 
@@ -19,4 +20,4 @@
             </div>
         </article>
     @endforeach
-</body>
+@endsection
