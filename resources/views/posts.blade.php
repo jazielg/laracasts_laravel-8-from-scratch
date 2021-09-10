@@ -1,14 +1,25 @@
-@extends('layout')
+<x-layout>
+    @include('_post-header')
 
-@section('banner')
-    <h1>My Blog</h1>
-@endsection
+    <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6">
+        <x-post-feature-card />
 
-@section('content')
-    @foreach ($posts as $post)
+        <div class="lg:grid lg:grid-cols-2">
+            <x-post-card />
+            <x-post-card />
+        </div>
+
+        <div class="lg:grid lg:grid-cols-3">
+            <x-post-card />
+            <x-post-card />
+            <x-post-card />
+        </div>
+    </main>
+
+    {{-- @foreach ($posts as $post) --}}
         {{-- @dd($loop) --}}
 
-        <article class="{{ $loop->even ? 'foobar' : '' }}">
+        {{-- <article class="{{ $loop->even ? 'foobar' : '' }}">
             <h1>
                 <a href="/posts/{{ $post->slug }}">
                     {{ $post->title }}
@@ -23,5 +34,5 @@
                 {{ $post->excerpt }}
             </div>
         </article>
-    @endforeach
-@endsection
+    @endforeach --}}
+</x-layout>
