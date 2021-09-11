@@ -17,12 +17,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // \Illuminate\Support\Facades\DB::listen(function ($query) {
-    //     logger($query->sql, $query->bindings);
-    // });
+    $posts = Post::latest();
+
+    if (request('search')) {
+        $posts->where('title', 'like', '%' . request('search') . '%')
+            ->orWhere('body', 'like', '%' . request('search') . '%');
+    }
 
     return view('posts', [
-        'posts' => Post::latest('published_at')->with(['category', 'author'])->get(),
+        'posts' => $posts->get(),
         'categories' => Category::all()
     ]);
 })->name('home');
