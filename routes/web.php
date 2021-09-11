@@ -29,8 +29,8 @@ Route::get('posts/{post:slug}', [PostController::class, 'show']); // ->where('po
 //     ]);
 // })->name('category');
 
-Route::get('authors/{author:username}', function (User $author) {
-    return view('posts', [
-        'posts' => $author->posts->load(['category', 'author']),
-    ]);
-});
+// Route::get('authors/{author:username}', function (User $author) {
+//     return view('posts.index', [
+//         'posts' => $author->posts->load(['category', 'author']),
+//     ]);
+// });
