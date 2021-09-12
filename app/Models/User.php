@@ -45,6 +45,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // https://laravel.com/docs/8.x/eloquent-mutators - Accessor
+    public function getUsernameAttribute($username)
+    {
+        return ucwords($username);
+    }
+
+    // https://laravel.com/docs/8.x/eloquent-mutators - Mutator
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
     public function posts()
     {
         return $this->hasMany(Post::class);
