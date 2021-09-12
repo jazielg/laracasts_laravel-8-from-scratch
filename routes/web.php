@@ -34,6 +34,7 @@ Route::get('posts/{post:slug}', [PostController::class, 'show']); // ->where('po
 //     ]);
 // });
 
+// https://laravel.com/docs/8.x/starter-kits#laravel-breeze
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
 
