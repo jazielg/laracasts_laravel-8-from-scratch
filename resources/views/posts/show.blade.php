@@ -58,7 +58,6 @@
                     <x-post-comment />
                     <x-post-comment />
                     <x-post-comment />
-
                 </section>
             </article>
         </main>
